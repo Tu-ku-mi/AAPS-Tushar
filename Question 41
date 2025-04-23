@@ -1,0 +1,65 @@
+🔢 41. Find the Maximum Subarray Sum Using Kadane’s Algorithm
+✅ Problem Statement
+Given an array of integers, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum. Kadane’s algorithm is an efficient way to solve this problem in linear time.
+
+🧠 Algorithm
+Key Idea:
+Kadane's algorithm works by maintaining two variables during a single pass through the array:
+
+maxSoFar: Stores the maximum sum encountered so far.
+maxEndingHere: Stores the maximum sum of the subarray that ends at the current index.
+Steps:
+Initialize maxSoFar to the smallest possible integer and maxEndingHere to 0.
+Traverse the array and update maxEndingHere by adding the current element.
+If maxEndingHere becomes negative, reset it to 0 (start a new subarray).
+Update maxSoFar to the maximum of maxSoFar and maxEndingHere.
+The final value of maxSoFar will be the maximum sum of the subarray.
+Kadane’s Algorithm Explanation:
+Start by assuming the first element is part of the maximum sum subarray.
+For each subsequent element:
+Add it to the current subarray sum (maxEndingHere).
+If adding the element makes the sum negative, reset it and start fresh from the current element.
+Track the highest sum encountered during this process (maxSoFar).
+💻 Java Program
+public class KadaneAlgorithm {
+    public static int maxSubArraySum(int[] arr) {
+        // Step 1: Initialize variables
+        int maxSoFar = Integer.MIN_VALUE;
+        int maxEndingHere = 0;
+
+        // Step 2: Traverse the array
+        for (int num : arr) {
+            maxEndingHere += num;
+            if (maxEndingHere < num) {
+                maxEndingHere = num;
+            }
+            if (maxSoFar < maxEndingHere) {
+                maxSoFar = maxEndingHere;
+            }
+        }
+        
+        return maxSoFar;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+        System.out.println("Maximum subarray sum is: " + maxSubArraySum(arr));
+    }
+}
+🧪 Example
+Input:
+arr = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+Output:
+Maximum subarray sum is: 6
+Explanation:
+The subarray [4, -1, 2, 1] has the largest sum of 6.
+⏱️ Time and Space Complexities
+Metric	Complexity
+Time Complexity	O(n)
+Space Complexity	O(1)
+Time Complexity: The algorithm makes a single pass over the array, processing each element exactly once. Thus, the time complexity is O(n), where n is the number of elements in the array.
+Space Complexity: The space complexity is O(1) because we only use a constant amount of extra space to store the current and maximum sums.
+📌 Summary
+Kadane’s algorithm efficiently solves the problem of finding the maximum sum of a contiguous subarray in linear time. By dynamically adjusting the sum of the current subarray and maintaining the maximum sum found, this approach offers optimal performance for this problem.
+
+This algorithm is widely used for problems involving subarrays and dynamic programming.
